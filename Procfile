@@ -1,1 +1,1 @@
-`web:gunicorn main:app`
+web: git gunicorn main:app
