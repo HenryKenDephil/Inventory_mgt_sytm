@@ -1,0 +1,26 @@
+body {
+    background-image: url(../static/pic/stock.jpg)
+}
+
+.main {
+    color: black;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-family: 'Oxygen', sans-serif;
+    font-size: medium;
+    border-radius: 2%;
+}
+
+h2,
+h5 {
+    font-family: 'Bai Jamjuree', sans-serif;
+    ;
+    font-weight: bolder;
+}
+
+p {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 52px;
+    color: red;
+    font-weight: 700;
+}
