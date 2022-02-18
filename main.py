@@ -127,5 +127,6 @@ def dashboard():
   print(labels)
   print(data)
   return render_template('dashboard.html', labels=labels, data=data)
+if __name__ == '__main__':
+    app.run(debug=True)
 
-app.run(debug=True)
