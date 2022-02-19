@@ -9,7 +9,7 @@ import psycopg2
 app = Flask(__name__)
 app.config['SECRET_KEY']='ee199f92ba624dd53f9fd27bdff4d210'
 
-conn = psycopg2.connect("dbname='d4ahe615593c39' user='tjvfmqqynrzirk' host='ec2-18-215-8-186.compute-1.amazonaws.com' password='187e35f9a412a9b353837991fd918442ffb097a74b2e28dd6a6020fde20512c3' port='3229'")
+conn = psycopg2.connect("dbname='decprd841u6jj6' user='lbmcpwtjnuoqhh' host='ec2-54-220-223-3.eu-west-1.compute.amazonaws.com' password='a41ed1538f24b50624d6cc6b9194fecf479191820b53ad28d7e6041e7f9275ba' port='5432'")
 
 
 
