@@ -1,6 +1,16 @@
+from dataclasses import fields
 from datetime import datetime
+from email.policy import strict
+from math import prod
 from optparse import Values
 import os
+import string
+import sqlalchemy
+from sqlalchemy import create_engine
+engine = create_engine('sqlite:///:memory:', echo=True)
+from sqlalchemy import Column, Integer, String, VARCHAR, Table
+from sqlalchemy.orm import declarative_base
+Base = declarative_base()
 import secrets
 from flask import Flask,request, render_template, url_for, redirect, flash, session
 import psycopg2 
@@ -11,6 +21,54 @@ app.config['SECRET_KEY']='ee199f92ba624dd53f9fd27bdff4d210'
 
 conn = psycopg2.connect("dbname='decprd841u6jj6' user='lbmcpwtjnuoqhh' host='ec2-54-220-223-3.eu-west-1.compute.amazonaws.com' password='a41ed1538f24b50624d6cc6b9194fecf479191820b53ad28d7e6041e7f9275ba' port='5432'")
 
+# CREATING heroku database
+db_twigafoods="CREATE Table public.products(bp , id, name, sp, serial_no) Values(%s,%s,%s,%s, %s)"
+db_twigafoods="CREATE Table public.sales(id, productid, quantity, created_at, productname)  Values(%s,%s,%s,%s, %s)"
+
+
+class products(Base):
+     __tablename__ = 'products'
+
+     id = Column(Integer, primary_key=True)
+     name = Column(String)
+     bp = Column(String)
+     sp= Column(String)
+     serial_no=(VARCHAR)
+
+     def __repr__(self):
+       return "<products(name='%s', bp='%s', sp='%s', serial_no='%s')>" % (
+                          self.name, self.bp, self.sp, self.serial_no)
+
+class sales(Base):
+     __tablename__ = 'sales'
+
+     id = Column(Integer, primary_key=True)
+     productid = Column(Integer)
+     quantity = Column(Integer)
+     created_at= Column(Integer)
+     productname=(String)
+
+     def __repr__(self):
+       return "<products(productid='%s', quantity='%s', created_at='%s', productname='%s')>" % (
+                          self.productid, self.quantity, self.created_at, self.productname)
+
+# creating data schema
+
+class productsSchema(products.Schema):
+    class Meta:
+        fields=('id', 'name', 'bp', 'sp', 'serial_no')
+
+class salesSchema(sales.Schema):
+    class Meta:
+        fields=('id', 'productid', 'quantity', 'created_at', 'productname')
+        
+# init schema
+
+products_Schema=productsSchema(strict=True)
+products_Schema=productsSchema(many=True, strict=True)
+
+sales_Schema=salesSchema(strict=True)
+sales_Schema=salesSchema(many=True, strict=True)
 
 
 @app.route('/inventories')
