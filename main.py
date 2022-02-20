@@ -12,7 +12,7 @@ from sqlalchemy import Column, Integer, String, VARCHAR, Table
 from sqlalchemy.orm import declarative_base
 Base = declarative_base()
 import secrets
-from flask import Flask,request, render_template, url_for, redirect, flash, session
+from flask import Flask,request, render_template, url_for, redirect, flash, session, Marshmallow
 import psycopg2 
 
 
@@ -25,7 +25,8 @@ conn = psycopg2.connect("dbname='decprd841u6jj6' user='lbmcpwtjnuoqhh' host='ec2
 db_twigafoods="CREATE Table public.products(bp , id, name, sp, serial_no) Values(%s,%s,%s,%s, %s)"
 db_twigafoods="CREATE Table public.sales(id, productid, quantity, created_at, productname)  Values(%s,%s,%s,%s, %s)"
 
-
+ma=Marshmallow(app
+               )
 class products(Base):
      __tablename__ = 'products'
 
@@ -54,11 +55,12 @@ class sales(Base):
 
 # creating data schema
 
-class productsSchema(products.Schema):
+
+class productsSchema(ma.Schema):
     class Meta:
         fields=('id', 'name', 'bp', 'sp', 'serial_no')
 
-class salesSchema(sales.Schema):
+class salesSchema(ma.Schema):
     class Meta:
         fields=('id', 'productid', 'quantity', 'created_at', 'productname')
         
