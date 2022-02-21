@@ -66,11 +66,11 @@ class sales():
         
 # init schema
 
-products_Schema=products(strict=True)
-products_Schema=products(many=True, strict=True)
+# products_Schema=products(strict=True)
+# products_Schema=products(many=True, strict=True)
 
-sales_Schema=sales(strict=True)
-sales_Schema=sales(many=True, strict=True)
+# sales_Schema=sales(strict=True)
+# sales_Schema=sales(many=True, strict=True)
 
 
 @app.route('/inventories')
