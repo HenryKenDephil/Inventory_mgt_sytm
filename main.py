@@ -23,10 +23,10 @@ app.config['SECRET_KEY']='ee199f92ba624dd53f9fd27bdff4d210'
 conn = psycopg2.connect("dbname='decprd841u6jj6' user='lbmcpwtjnuoqhh' host='ec2-54-220-223-3.eu-west-1.compute.amazonaws.com' password='a41ed1538f24b50624d6cc6b9194fecf479191820b53ad28d7e6041e7f9275ba' port='5432'")
 cur = conn.cursor()
 # CREATING heroku database
-cur.execute("CREATE TABLE IF NOT EXISTS products(bp NUMERIC, id INTEGER PRIMARY KEY=True, name VARCHAR(100), sp NUMERIC, serial_no VARCHAR(15)) ")
-cur.execute("CREATE TABLE IF NOT EXISTS sales(id NOT NULL INTEGER PRIMARY KEY, productid INTEGER, quantity NUMERIC, created_at NUMERIC, productname VARCHAR(100))")
-cur.execute("CREATE TABLE IF NOT EXISTS stock(id INTEGER PRIMARY KEY, productid INTEGER, productname VARCHAR(100), bp NUMERIC, quantity NUMERIC , purchasescost NUMERIC, created NUMERIC)")
-# ma=Marshmallow(app)
+cur.execute("CREATE TABLE IF NOT EXISTS products(id INT PRIMARY KEY, bp INT, , name VARCHAR(100), sp INT, serial_no VARCHAR(15)) ")
+cur.execute("CREATE TABLE IF NOT EXISTS sales(id INT PRIMARY KEY, productid INT, quantity INT, created_at DATE, productname VARCHAR(100))")
+cur.execute("CREATE TABLE IF NOT EXISTS stock(id INT PRIMARY KEY, productid INT, productname VARCHAR(100), bp INT, quantity INT, purchasescost INT, created DATE)")
+
                
 # class products(Base):
 #      __tablename__ = 'products'
@@ -76,7 +76,7 @@ cur.execute("CREATE TABLE IF NOT EXISTS stock(id INTEGER PRIMARY KEY, productid 
 
 @app.route('/inventories')
 def products():
- cur = conn.cursor()
+#  cur = conn.cursor()
  cur.execute('select * from products')
  products = cur.fetchall()
  conn.commit()
@@ -86,7 +86,7 @@ def products():
 
 @app.route('/edit_products', methods=["GET","POST"])
 def edit_products():
-    cur = conn.cursor()
+    # cur = conn.cursor()
     if request.method == 'POST':
         name = request.form['name']
         serial_no = request.form['serial_no']
@@ -106,7 +106,7 @@ def edit_products():
 
 @app.route('/add_products', methods=["GET","POST"])
 def add_products():
-    cur=conn.cursor()
+    # cur=conn.cursor()
     if request.method == 'POST':
         name = request.form['name']
         serial_no = request.form['serial_no']
@@ -129,7 +129,7 @@ def home():
 
 @app.route('/sales') 
 def sales():
-    cur =conn.cursor()
+    # cur =conn.cursor()
     # cur.execute('SELECT * FROM sales')
     cur.execute('SELECT  p.name, sum(s.quantity) as q ,sum((p.sp-p.bp)*s.quantity) as totalprofit FROM public.products as p join sales as s on p.id=s.productid GROUP BY name;')
     sales = cur.fetchall()
@@ -139,7 +139,7 @@ def sales():
 
 @app.route('/sales/<int:id>')
 def view_sales(id):
- cur = conn.cursor()
+#  cur = conn.cursor()
 #  cur.execute('SELECT  p.name, sum(s.quantity) as q ,sum((p.sp-p.bp)*s.quantity) as totalprofit FROM public.products as p join sales as s on p.id=s.productid WHERE id=%s;')
  cur.execute('SELECT * FROM sales WHERE id=%s',[id])
  sales = cur.fetchall()
@@ -149,7 +149,7 @@ def view_sales(id):
 
 @app.route('/makesales', methods=["GET", "POST"])
 def makesales():
-    cur = conn.cursor()
+    # cur = conn.cursor()
     if request.method == 'POST':
         id= request.form['productid']
         quantity = request.form['quantity']
@@ -166,7 +166,7 @@ def makesales():
     
 @app.route('/stock') 
 def stock():
-    cur =conn.cursor()
+    # cur =conn.cursor()
     cur.execute('SELECT * FROM products')
     # cur.execute('SELECT  p.name, sum(s.quantity) as q ,sum((p.sp-p.bp)*s.quantity) as totalprofit FROM public.products as p join sales as s on p.id=s.productid GROUP BY name;')
     stock = cur.fetchall()
@@ -176,7 +176,7 @@ def stock():
 
 @app.route('/dashboard')
 def dashboard():
-  cur = conn.cursor()
+#   cur = conn.cursor()
   cur.execute ("SELECT extract(year from s.created_at) || '-' || extract(month from created_at) || '-' || EXTRACT (DAY FROM s.created_at) as siku,sum((p.sp-p.bp)*s.quantity) as totalprofit FROM public.products as p join sales as s on p.id=s.productid GROUP BY s.created_at;")
   dashboard = cur.fetchall()
   print(dashboard)
