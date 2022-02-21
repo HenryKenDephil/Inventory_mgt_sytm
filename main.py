@@ -19,12 +19,13 @@ import psycopg2
 app = Flask(__name__)
 app.config['SECRET_KEY']='ee199f92ba624dd53f9fd27bdff4d210'
 
+
 conn = psycopg2.connect("dbname='decprd841u6jj6' user='lbmcpwtjnuoqhh' host='ec2-54-220-223-3.eu-west-1.compute.amazonaws.com' password='a41ed1538f24b50624d6cc6b9194fecf479191820b53ad28d7e6041e7f9275ba' port='5432'")
-
+cur = conn.cursor()
 # CREATING heroku database
-db_twigafoods="CREATE Table public.products(bp , id, name, sp, serial_no) Values(%s,%s,%s,%s, %s)"
-db_twigafoods="CREATE Table public.sales(id, productid, quantity, created_at, productname)  Values(%s,%s,%s,%s, %s)"
-
+cur.execute("CREATE TABLE IF NOT EXISTS products(bp NUMERIC, id INTEGER PRIMARY KEY=True, name VARCHAR(100), sp NUMERIC, serial_no VARCHAR(15)) ")
+cur.execute("CREATE TABLE IF NOT EXISTS sales(id NOT NULL INTEGER PRIMARY KEY, productid INTEGER, quantity NUMERIC, created_at NUMERIC, productname VARCHAR(100))")
+cur.execute("CREATE TABLE IF NOT EXISTS stock(id INTEGER PRIMARY KEY, productid INTEGER, productname VARCHAR(100), bp NUMERIC, quantity NUMERIC , purchasescost NUMERIC, created NUMERIC)")
 # ma=Marshmallow(app)
                
 # class products(Base):
