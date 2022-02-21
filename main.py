@@ -27,42 +27,42 @@ db_twigafoods="CREATE Table public.sales(id, productid, quantity, created_at, pr
 
 # ma=Marshmallow(app)
                
-class products(Base):
-     __tablename__ = 'products'
+# class products(Base):
+#      __tablename__ = 'products'
 
-     id = Column(Integer, primary_key=True)
-     name = Column(String)
-     bp = Column(String)
-     sp= Column(String)
-     serial_no=(VARCHAR)
+#      id = Column(Integer, primary_key=True)
+#      name = Column(String)
+#      bp = Column(String)
+#      sp= Column(String)
+#      serial_no=(VARCHAR)
 
-     def __repr__(self):
-       return "<products(name='%s', bp='%s', sp='%s', serial_no='%s')>" % (
-                          self.name, self.bp, self.sp, self.serial_no)
+#      def __repr__(self):
+#        return "<products(name='%s', bp='%s', sp='%s', serial_no='%s')>" % (
+#                           self.name, self.bp, self.sp, self.serial_no)
 
-class sales(Base):
-     __tablename__ = 'sales'
+# class sales(Base):
+#      __tablename__ = 'sales'
 
-     id = Column(Integer, primary_key=True)
-     productid = Column(Integer)
-     quantity = Column(Integer)
-     created_at= Column(Integer)
-     productname=(String)
+#      id = Column(Integer, primary_key=True)
+#      productid = Column(Integer)
+#      quantity = Column(Integer)
+#      created_at= Column(Integer)
+#      productname=(String)
 
-     def __repr__(self):
-       return "<products(productid='%s', quantity='%s', created_at='%s', productname='%s')>" % (
-                          self.productid, self.quantity, self.created_at, self.productname)
+#      def __repr__(self):
+#        return "<products(productid='%s', quantity='%s', created_at='%s', productname='%s')>" % (
+#                           self.productid, self.quantity, self.created_at, self.productname)
 
-# creating data schema
+# # creating data schema
 
 
-class products():
-    class Meta:
-        fields=('id', 'name', 'bp', 'sp', 'serial_no')
+# class products():
+#     class Meta:
+#         fields=('id', 'name', 'bp', 'sp', 'serial_no')
 
-class sales():
-    class Meta:
-        fields=('id', 'productid', 'quantity', 'created_at', 'productname')
+# class sales():
+#     class Meta:
+#         fields=('id', 'productid', 'quantity', 'created_at', 'productname')
         
 # init schema
 
