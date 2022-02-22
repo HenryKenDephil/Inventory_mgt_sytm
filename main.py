@@ -84,7 +84,7 @@ def products():
  return render_template('inventories.html', x=products) 
 
 
-@app.route('/edit_products', methods=["GET","POST"])
+@app.route('/edit_products', methods=["POST"])
 def edit_products():
     # cur = conn.cursor()
     if request.method == 'POST':
